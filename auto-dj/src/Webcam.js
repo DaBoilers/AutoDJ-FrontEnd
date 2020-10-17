@@ -6,7 +6,8 @@ class Video extends React.Component {
         this.streamCamVideo = this.streamCamVideo.bind(this)
     }
     streamCamVideo() {
-        var constraints = { audio: true, video: { width: 1280, height: 720 } };
+        // DEAF DJ
+        var constraints = { audio: false, video: { width: 1280, height: 720 } };
         navigator.mediaDevices
             .getUserMedia(constraints)
             .then(function (mediaStream) {
