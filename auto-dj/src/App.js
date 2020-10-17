@@ -24,7 +24,7 @@ export default class App extends React.Component {
       <div>
         <CoolTabs
           tabKey={'1'}
-          style={{ margin: 0, height: 100%, background: 'white' }}
+          style={{ margin: 0, height: 400, background: 'white' }}
           activeTabStyle={{ background: 'red', color: 'white' }}
           unActiveTabStyle={{ background: 'green', color: 'black' }}
           activeLeftTabBorderBottomStyle={{ background: 'blue', height: 4 }}
