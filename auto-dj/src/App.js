@@ -24,7 +24,7 @@ export default class App extends React.Component {
       <div>
         <CoolTabs
           tabKey={'1'}
-          style={{ width: 550, height: 500, background: 'white' }}
+          style={{ margin: 0, height: 100%, background: 'white' }}
           activeTabStyle={{ background: 'red', color: 'white' }}
           unActiveTabStyle={{ background: 'green', color: 'black' }}
           activeLeftTabBorderBottomStyle={{ background: 'blue', height: 4 }}
@@ -32,8 +32,8 @@ export default class App extends React.Component {
           tabsBorderBottomStyle={{ background: 'orange', height: 4 }}
           leftContentStyle={{ background: 'lightgreen' }}
           rightContentStyle={{ background: 'lightblue' }}
-          leftTabTitle={'Left title'}
-          rightTabTitle={'Right title'}
+          leftTabTitle={'Webcam View'}
+          rightTabTitle={'Song Player'}
           leftContent={<Video />}
           rightContent={<Song />}
           contentTransitionStyle={'transform 0.6s ease-in'}
