@@ -1,13 +1,6 @@
 import React from 'react';
+import Video from "./Webcam.js"
 import CoolTabs from 'react-cool-tabs';
-
-class Video extends React.Component {
-  render() {
-    return <div>
-      this is the webcam video
-    </div>
-  }
-}
 
 class Song extends React.Component {
   render() {
