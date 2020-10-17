@@ -9,7 +9,10 @@
     "react": "^16.14.0",
     "react-cool-tabs": "^1.1.6",
     "react-dom": "^16.14.0",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "react-spotify-player": "^1.0.4",
+    "react-spotify-web-playback": "^0.7.0",
+    "spotify-web-api-js": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
