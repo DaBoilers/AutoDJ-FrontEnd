@@ -3,7 +3,8 @@ import React from 'react';
 class Video extends React.Component {
     constructor(props) {
         super(props);
-        this.streamCamVideo = this.streamCamVideo.bind(this)
+        this.streamCamVideo = this.streamCamVideo.bind(this);
+        this.base64ImageString = "image";
     }
 
     streamCamVideo() {
@@ -24,7 +25,7 @@ class Video extends React.Component {
             }); // always check for errors at the end.
     }
 
-    captureImage() {
+    async captureImage() {
         var canvas = document.getElementById('canvas');
         var video = document.querySelector('video');
 
@@ -34,6 +35,16 @@ class Video extends React.Component {
 
         document.getElementById("printresult").innerHTML = canvas.toDataURL();
         console.log(canvas.toDataURL());
+        this.base64ImageString = canvas.toDataURL();
+
+        const postOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({content : this.base64ImageString})
+        }
+
+        /* Will change once we deploy somewhere */
+        await fetch("http://localhost:5000/user_image", postOptions);
     }
 
     render() {
@@ -51,7 +62,7 @@ class Video extends React.Component {
         </div>
 
         setInterval(this.captureImage, 30000);
-
+        
         return videoContainer;
     }
 }
