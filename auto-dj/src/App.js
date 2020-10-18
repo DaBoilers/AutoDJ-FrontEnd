@@ -1,7 +1,9 @@
 import React from 'react';
 import CoolTabs from 'react-cool-tabs';
-import SpotifyWebPlayer from 'react-spotify-web-playback';
 import './App.css';
+import Script from 'react-load-script';
+
+
 
 class Video extends React.Component {
   render() {
@@ -12,25 +14,84 @@ class Video extends React.Component {
 }
 
 class Song extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleLoadSuccess = this.handleLoadSuccess.bind(this);
+    this.handleLoadFailure = this.handleLoadSuccess.bind(this);
+    this.cb = this.cb.bind(this);
+  }
+
+  componentDidMount() {
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      this.handleLoadSuccess();
+    };
+  }
+
+  handleLoadSuccess() {
+    this.setState({ scriptLoaded: true });
+    console.log("Script loaded");
+    const token = 'BQDtOyZJxO0pfuhx9ReACpZLS8kVhBTH09YJv38ET4wLWpin2YxBsuHCYxWxgM1NumRRdUKb3bkJJZA6yMpPQEZr7eXkd2hmSi5arwQoHi6zgrtGFbPBLcyBPYm5UBfic-47HBjbVFkLT2qtjSrIKklNW8WlWx8xhRLCP0E-WA';
+    const player = new window.Spotify.Player({
+      name: 'Web Playback SDK Quick Start Player',
+      getOAuthToken: cb => { cb(token); }
+    });
+    console.log(player);
+
+    // Error handling
+    player.addListener('initialization_error', ({ message }) => { console.error(message); });
+    player.addListener('authentication_error', ({ message }) => { console.error(message); });
+    player.addListener('account_error', ({ message }) => { console.error(message); });
+    player.addListener('playback_error', ({ message }) => { console.error(message); });
+
+    // Playback status updates
+    player.addListener('player_state_changed', state => { console.log(state); });
+
+    // Ready
+    player.addListener('ready', ({ device_id }) => {
+      console.log('Ready with Device ID', device_id);
+    });
+
+    // Not Ready
+    player.addListener('not_ready', ({ device_id }) => {
+      console.log('Device ID has gone offline', device_id);
+    });
+
+    // Connect to the player!
+    player.connect();
+  }
+
+  cb(token) {
+    return(token);
+  }
+
+  handleScriptCreate() {
+    this.setState({ scriptLoaded: false });
+    console.log("Script created");
+  }
+
+  handleScriptError() {
+    this.setState({ scriptError: true });
+    console.log("Script error");
+  }
+
+  handleScriptLoad() {
+    this.setState({ scriptLoaded: true});
+    console.log("Script loaded");
+  }
+
   render() {
     return (
-    <SpotifyWebPlayer
-      showSaveIcon
-      syncExternalDevice
-      autoPlay={false}
-      token={"BQCKan0F85uv4mD3kPfRqIABFzNi3yzGLh5BJ3m3rK1oqJEFqNPcPW_-jvwu5_4YLN0ib6Stpb9GYCd9mqTc0DtlzX8o7ILyUc84DFWJ8STBeKXjsegHjvTMlKhLVH731RlSJTguPYpcXcQl7xa5toduRxKMuB_LYCffMA-vLQ"}
-      uris={[
-        "spotify:track:2ViHeieFA3iPmsBya2NDFl",
-        "spotify:track:5zq709Rk69kjzCDdNthSbK",
-        "spotify:track:4iEieBoCRNCpi2YcAfQHYS",
-        "spotify:track:1GeutBjnPeNzmixHjvyrq7",
-        "spotify:track:4BHkTresnxvVZSyIZU2Kcg",
-        "spotify:track:3xIUJZUa8l2pcqJHW9xUnK",
-        "spotify:track:0RFcbGAZ0CDIqffkQTCKa8",
-        "spotify:track:71iRwikoDrym0amiXnEg3e"
-      ].join(",")}
-    />);
-    
+      <div className="App">
+        <header className="App-header">
+          <Script
+            url="https://sdk.scdn.co/spotify-player.js"
+            onCreate={this.handleScriptCreate.bind(this)}
+            onError={this.handleScriptError.bind(this)}
+            onLoad={this.handleScriptLoad.bind(this)}
+          />
+        </header>
+      </div>
+    );
   }
 }
 
