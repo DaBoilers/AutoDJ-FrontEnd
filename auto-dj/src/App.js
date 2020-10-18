@@ -1,17 +1,10 @@
 import React from 'react';
+import Video from "./Webcam.js"
 import CoolTabs from 'react-cool-tabs';
 import './App.css';
 import Script from 'react-load-script';
 
-
-
-class Video extends React.Component {
-  render() {
-    return <div>
-      this is the webcam video
-    </div>
-  }
-}
+// video is now in separate js file.
 
 class Song extends React.Component {
   constructor(props) {
@@ -97,16 +90,24 @@ class Song extends React.Component {
 
 export default class App extends React.Component {
   render() {
+    const mystyle = {
+      margin: 0,
+      width: "700",
+      height: 900,
+      border: "3px solid green",
+      overflow: 'hidden',
+      background: 'white'
+    };
     return (
       <div>
         <CoolTabs
           tabKey={'1'}
-          style={{ margin: 0, height: 400, background: 'white' }}
-          activeTabStyle={{ background: 'red', color: 'white' }}
-          unActiveTabStyle={{ background: 'green', color: 'black' }}
-          activeLeftTabBorderBottomStyle={{ background: 'blue', height: 4 }}
-          activeRightTabBorderBottomStyle={{ background: 'yellow', height: 4 }}
-          tabsBorderBottomStyle={{ background: 'orange', height: 4 }}
+          style={mystyle}
+          activeTabStyle={{ background: '#3f8a53', color: 'white' }}
+          unActiveTabStyle={{ background: '#90f5ab', color: 'black' }}
+          activeLeftTabBorderBottomStyle={{ background: '#000000', height: 4 }}
+          activeRightTabBorderBottomStyle={{ background: '#000000', height: 4 }}
+          tabsBorderBottomStyle={{ background: '#efff3b', height: 4 }}
           leftContentStyle={{ background: 'lightgreen' }}
           rightContentStyle={{ background: 'lightblue' }}
           leftTabTitle={'Webcam View'}
