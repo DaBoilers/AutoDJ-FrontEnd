@@ -40,7 +40,7 @@ class Video extends React.Component {
         const postOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({content : this.base64ImageString})
+            body: JSON.stringify({"content" : this.base64ImageString})
         }
 
         /* Will change once we deploy somewhere */
